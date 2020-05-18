@@ -38,6 +38,7 @@
     "@types/node": "^12.11.1",
     "@types/ol": "^6.3.1",
     "codelyzer": "^5.1.2",
+    "dotenv": "^8.2.0",
     "ftp-deploy": "^2.3.7",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~4.2.1",

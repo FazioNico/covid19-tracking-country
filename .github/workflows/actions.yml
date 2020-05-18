@@ -28,3 +28,11 @@ jobs:
     - run: npm run build --if-present
     - run: npm run deploy --if-present
    # - run: npm test
+
+      env:
+        CI: true
+        APP: ${{env.APP}}
+        ## Deploy env
+        HOST: ${{ secrets.HOST }}
+        PASS: ${{ secrets.PASS }}
+        USER: ${{ secrets.USER }}

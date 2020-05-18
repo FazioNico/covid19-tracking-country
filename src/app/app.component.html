@@ -1,9 +1,12 @@
-<button (click)="load()">test api</button>
 
-<div>
+<app-olmap
+    #map
+    [data]="datas$|async|groupBy: 'Country_Region'"
+    [options]="{radiusMarkerKey: 'Confirmed', zoom: 6}"></app-olmap>
+<!-- <div>
   <ul>
     <li *ngFor="let item of datas$|async|groupBy: 'Country_Region'">
       {{item?.key }}
     </li>
   </ul>
-</div>
+</div> -->

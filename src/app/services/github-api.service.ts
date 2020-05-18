@@ -46,6 +46,14 @@ export class GitHubSertvice {
             return titles.reduce((object, curr, i) => (object[curr] = values[i], object), {});
         });
         return data;
+      })
+      .then(data => {
+        return data.map(el => {
+          return {
+            ...el,
+            Confirmed: parseInt(el['Confirmed'], 10)
+          };
+        });
       });
     this._data$.next(data);
   }

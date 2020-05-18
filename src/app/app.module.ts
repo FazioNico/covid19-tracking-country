@@ -3,16 +3,23 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { GitHubSertvice } from './services/github-api.service';
+import { HttpClientModule } from '@angular/common/http';
+import { GroupByPipe } from './pipes/groupby.pipe';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    GroupByPipe
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    GitHubSertvice
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

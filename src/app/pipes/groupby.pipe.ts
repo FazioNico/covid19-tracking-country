@@ -18,8 +18,14 @@ export class GroupByPipe implements PipeTransform {
       // this will return an array of objects, each object containing a group of objects
       return Object.keys(groupedCollection).map(key => ({
         key,
+        totalConfirmed: groupedCollection[key].reduce((prev, next) => {
+          return prev + parseInt(next.Confirmed, 10);
+        }, 0),
         length: groupedCollection[key].length,
         value: groupedCollection[key]
-      }));
+      }))
+      .filter(el => el.key !== 'undefined')
+      .sort((a, b) => a.totalConfirmed - b.totalConfirmed)
+      .reverse();
     }
 }

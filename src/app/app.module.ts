@@ -10,6 +10,7 @@ import { OlMapComponent } from './olmap.component';
 import { IonicModule } from '@ionic/angular';
 import { DetailsComponent } from './details.components';
 import { ChartComponent } from './chart.component';
+import { TotalByPipe } from './pipes/total.pipe';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { ChartComponent } from './chart.component';
     OlMapComponent,
     DetailsComponent,
     ChartComponent,
-    GroupByPipe
+    GroupByPipe,
+    TotalByPipe
   ],
   imports: [
     BrowserModule,

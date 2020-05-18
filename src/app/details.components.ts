@@ -8,7 +8,14 @@ import { ModalController } from '@ionic/angular';
       <ion-grid>
         <ion-row>
           <ion-col>
-          <ion-icon (click)="modalCtrl.dismiss()" name="close-circle-outline"></ion-icon>
+            <ion-icon (click)="modalCtrl.dismiss()" name="close-circle-outline"></ion-icon>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="ion-text-center">
+            <ion-text>
+              <h1>{{value?.title}}</h1>
+            </ion-text>
           </ion-col>
         </ion-row>
         <ion-row>
@@ -51,14 +58,11 @@ import { ModalController } from '@ionic/angular';
           </ion-col>
         </ion-row>
       </ion-grid>
-      
+
       <app-chart
           [title]="value?.title"
           [labels]="value?.labels"
           [data]="value?.data"></app-chart>
-      <pre>
-        {{value|json}}
-      </pre>
     </ion-content>
   `,
   styles: []

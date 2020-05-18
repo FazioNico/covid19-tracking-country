@@ -2,19 +2,20 @@
   <ion-split-pane contentId="main">
     <!--  our side menu  -->
     <ion-menu contentId="main">
-      <ion-header>
-        <ion-toolbar>
-          <ion-title>Menu</ion-title>
-        </ion-toolbar>
-      </ion-header>
       <ion-content>
-     <div>
-        <ul>
-          <li (click)="handleActions({type: 'openModal', payload: item})" *ngFor="let item of datas$|async|groupBy: 'Country_Region'">
-            {{ item?.key }}
-          </li>
-        </ul>
-      </div>
+        <ion-list>
+          <ion-item
+          (click)="handleActions({type: 'openModal', payload: item})"
+          *ngFor="let item of datas$|async|groupBy: 'Country_Region'; let i = index">
+          <ion-chip slot="start">
+            {{i + 1}}
+          </ion-chip>
+          {{item?.key}}
+          <ion-badge slot="end">
+            {{item?.totalConfirmed}}
+          </ion-badge>
+        </ion-item>
+        </ion-list>
       </ion-content>
     </ion-menu>
     <!-- the main content -->

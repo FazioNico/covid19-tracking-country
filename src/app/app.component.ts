@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { OlMapComponent } from './olmap.component';
 import { ModalController } from '@ionic/angular';
 import { DetailsComponent } from './details.components';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -23,7 +24,6 @@ export class AppComponent implements OnInit {
 
   async ngOnInit() {
     await this.load();
-    // this.map.addFeatures();
   }
 
   async load() {
@@ -36,7 +36,7 @@ export class AppComponent implements OnInit {
     const {type =  null, payload = null} = $event;
     switch (true) {
       case type === 'openModal':
-        this._openModal(payload)
+        this._openModal(payload);
         break;
       default:
         break;

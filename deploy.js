@@ -7,7 +7,7 @@ var config = {
     password: process.env.PASS, // "password",
     host: process.env.HOST, // "ftp.someserver.com",
     port: 21,
-    localRoot: __dirname + "/dist",
+    localRoot: __dirname + "/dist/Covid19TrackingCountry",
     remoteRoot: "/",
     // include: ["*", "**/*"],      // this would upload everything except dot files
     include: ["*", "**/*", ".*"],

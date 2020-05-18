@@ -19,6 +19,7 @@
     "@angular/platform-browser": "~9.1.7",
     "@angular/platform-browser-dynamic": "~9.1.7",
     "@angular/router": "~9.1.7",
+    "@ionic/angular": "^5.1.1",
     "ol": "^6.3.1",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
@@ -43,6 +44,7 @@
     "protractor": "~5.4.3",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
-    "typescript": "~3.8.3"
+    "typescript": "~3.8.3",
+    "@ionic/angular-toolkit": "latest"
   }
 }

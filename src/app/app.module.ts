@@ -7,6 +7,7 @@ import { GitHubSertvice } from './services/github-api.service';
 import { HttpClientModule } from '@angular/common/http';
 import { GroupByPipe } from './pipes/groupby.pipe';
 import { OlMapComponent } from './olmap.component';
+import { IonicModule } from '@ionic/angular';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { OlMapComponent } from './olmap.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    IonicModule.forRoot()
   ],
   providers: [
     GitHubSertvice

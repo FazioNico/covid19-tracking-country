@@ -1,25 +1,19 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { IonicModule } from '@ionic/angular';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { GitHubSertvice } from './services/github-api.service';
-import { HttpClientModule } from '@angular/common/http';
-import { GroupByPipe } from './pipes/groupby.pipe';
-import { OlMapComponent } from './olmap.component';
-import { IonicModule } from '@ionic/angular';
-import { DetailsComponent } from './details.components';
-import { ChartComponent } from './chart.component';
-import { TotalByPipe } from './pipes/total.pipe';
+import { COMPONENTS } from './components';
+import { PIPES } from './pipes';
+import { SERVICES } from './services';
 
 @NgModule({
   declarations: [
     AppComponent,
-    OlMapComponent,
-    DetailsComponent,
-    ChartComponent,
-    GroupByPipe,
-    TotalByPipe
+    COMPONENTS,
+    PIPES
   ],
   imports: [
     BrowserModule,
@@ -30,7 +24,7 @@ import { TotalByPipe } from './pipes/total.pipe';
     })
   ],
   providers: [
-    GitHubSertvice
+    SERVICES
   ],
   bootstrap: [AppComponent]
 })

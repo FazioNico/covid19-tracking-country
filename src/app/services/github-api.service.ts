@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
+import { Base64Service } from './base64.service';
+import { CSVService } from './csv.service';
+import { map } from 'rxjs/operators';
 
 const mockData = [
   {
@@ -36,44 +39,32 @@ const mockData = [
 @Injectable({
   providedIn: 'root'
 })
-export class GitHubSertvice {
+export class GitHubService {
 
   apiurl: string = 'https://api.github.com/repos/CSSEGISandData/COVID-19/contents/csse_covid_19_data/csse_covid_19_daily_reports/05-17-2020.csv';
-  private _data$: BehaviorSubject<any> = new BehaviorSubject([]);
-  public data$ = this._data$.asObservable();
 
   constructor(
-    private _httpClient: HttpClient
+    private _httpClient: HttpClient,
+    private _base64Service: Base64Service
   ) {}
 
-  async load() {
-    const data = await this._httpClient.get(this.apiurl).toPromise()
-      .then((response: any) =>  {
+  load() {
+    return this._httpClient.get(this.apiurl)
+    .pipe(
+      map((response: any) =>  {
         const {content = ''} = response;
-        return decodeURIComponent(escape(window.atob( content )));
-      })
-      .then(csv => {
-        const titles = csv.slice(0, csv.indexOf('\n')).split(',');
-        const rows = csv.slice(csv.indexOf('\n') + 1).split('\n');
-        const data = rows.map(row => {
-            const values = row.split(',');
-            return titles.reduce((object, curr, i) => (object[curr] = values[i], object), {});
-        });
-        return data;
-      })
-      .then(data => {
-        return data.map(el => {
-          return {
-            ...el,
-            Confirmed: parseInt(el['Confirmed'], 10)
-          };
-        });
-      })
-      .catch(err => {
-        console.log(err);
-        // handle error and display to dev or user...
-        return mockData;
-      });
-    this._data$.next(data);
+        return this._base64Service.to_utf8(content);
+      }),
+    );
+    // .toPromise()
+    //   // .then((response: any) =>  {
+    //   //   const {content = ''} = response;
+    //   //   return this._base64Service.to_utf8(content);
+    //   // })
+    //   .catch(err => {
+    //     console.log(err);
+    //     // handle error and display to dev or user...
+    //     return mockData;
+    //   });
   }
 }

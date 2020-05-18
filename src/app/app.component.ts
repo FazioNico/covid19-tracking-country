@@ -1,10 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { GitHubSertvice } from './services/github-api.service';
 import { Observable } from 'rxjs';
-import { OlMapComponent } from './olmap.component';
+import { OlMapComponent } from './components/olmap/olmap.component';
 import { ModalController } from '@ionic/angular';
-import { DetailsComponent } from './details.components';
-import { map } from 'rxjs/operators';
+import { DetailsComponent } from './components/details/details.components';
+import { Covid19Service } from './services/covid19.service';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +17,7 @@ export class AppComponent implements OnInit {
   datas$: Observable<any>;
 
   constructor(
-    private _api: GitHubSertvice,
+    private _api: Covid19Service,
     public modalCtrl: ModalController
   ) {}
 

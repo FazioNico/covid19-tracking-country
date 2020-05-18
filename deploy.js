@@ -8,7 +8,7 @@ var config = {
     host: process.env.HOST, // "ftp.someserver.com",
     port: 21,
     localRoot: __dirname + "/dist",
-    remoteRoot: "/codvid19",
+    remoteRoot: "/",
     // include: ["*", "**/*"],      // this would upload everything except dot files
     include: ["*", "**/*", ".*"],
     // e.g. exclude sourcemaps, and ALL files in node_modules (including dot files)

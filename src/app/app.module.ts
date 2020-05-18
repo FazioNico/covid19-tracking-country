@@ -8,18 +8,24 @@ import { HttpClientModule } from '@angular/common/http';
 import { GroupByPipe } from './pipes/groupby.pipe';
 import { OlMapComponent } from './olmap.component';
 import { IonicModule } from '@ionic/angular';
+import { DetailsComponent } from './details.components';
+import { ChartComponent } from './chart.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     OlMapComponent,
+    DetailsComponent,
+    ChartComponent,
     GroupByPipe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    IonicModule.forRoot()
+    IonicModule.forRoot({
+      mode: 'md'
+    })
   ],
   providers: [
     GitHubSertvice

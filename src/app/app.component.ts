@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { GitHubSertvice } from './services/github-api.service';
 import { Observable } from 'rxjs';
 import { OlMapComponent } from './olmap.component';
+import { ModalController } from '@ionic/angular';
+import { DetailsComponent } from './details.components';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +17,8 @@ export class AppComponent implements OnInit {
   datas$: Observable<any>;
 
   constructor(
-    private _api: GitHubSertvice
+    private _api: GitHubSertvice,
+    public modalCtrl: ModalController
   ) {}
 
   async ngOnInit() {
@@ -26,6 +29,43 @@ export class AppComponent implements OnInit {
   async load() {
     this.datas$ = this._api.data$;
     await this._api.load().catch(err => err);
+  }
+
+  async handleActions($event) {
+    console.log('output: ', $event);
+    const {type =  null, payload = null} = $event;
+    switch (true) {
+      case type === 'openModal':
+        this._openModal(payload)
+        break;
+      default:
+        break;
+    }
+  }
+
+  private async  _openModal(payload) {
+    const ionModal = await this.modalCtrl.create({
+      component: DetailsComponent,
+      componentProps: {value: {
+        title: payload.key,
+        labels: ['Confirmed', 'Recovered', 'Active', 'Deaths'],
+        data: [
+          payload.value.reduce((prev, next) => {
+            return prev + parseInt(next.Confirmed, 10);
+          }, 0),
+          payload.value.reduce((prev, next) => {
+            return prev + parseInt(next.Recovered, 10);
+          }, 0),
+          payload.value.reduce((prev, next) => {
+            return prev + parseInt(next.Active, 10);
+          }, 0),
+          payload.value.reduce((prev, next) => {
+            return prev + parseInt(next.Deaths, 10);
+          }, 0)
+        ]
+      }}
+    });
+    await ionModal.present();
   }
 
 }

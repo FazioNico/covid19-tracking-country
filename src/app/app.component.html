@@ -1,12 +1,30 @@
-
-<app-olmap
-    #map
-    [data]="datas$|async|groupBy: 'Country_Region'"
-    [options]="{radiusMarkerKey: 'Confirmed', zoom: 6}"></app-olmap>
-<!-- <div>
-  <ul>
-    <li *ngFor="let item of datas$|async|groupBy: 'Country_Region'">
-      {{item?.key }}
-    </li>
-  </ul>
-</div> -->
+<ion-app>
+  <ion-split-pane contentId="main">
+    <!--  our side menu  -->
+    <ion-menu contentId="main">
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Menu</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+     <div>
+        <ul>
+          <li (click)="handleActions({type: 'openModal', payload: item})" *ngFor="let item of datas$|async|groupBy: 'Country_Region'">
+            {{ item?.key }}
+          </li>
+        </ul>
+      </div>
+      </ion-content>
+    </ion-menu>
+    <!-- the main content -->
+    <!-- <ion-router-outlet id="main"></ion-router-outlet> -->
+    <ion-content id="main">
+      <app-olmap
+          #map
+          [data]="datas$|async|groupBy: 'Country_Region'"
+          [options]="{radiusMarkerKey: 'Confirmed', zoom: 6}"
+          (action)="handleActions($event)"></app-olmap>
+    </ion-content>
+  </ion-split-pane>
+</ion-app>

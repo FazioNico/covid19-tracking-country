@@ -104,9 +104,9 @@ export class OlMapComponent implements AfterViewInit {
     // add markers
     this.addFeatures();
     // force mapo update
-    this.olMap.updateSize();
-    // force Angular Detect Changes
-    this.cdr.detectChanges();
+    // this.olMap.updateSize();
+    // // force Angular Detect Changes
+    // this.cdr.detectChanges();
   }
 
   addFeatures() {

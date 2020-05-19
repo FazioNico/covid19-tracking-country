@@ -26,7 +26,7 @@
           </ion-chip>
           {{item?.key}}
           <ion-badge slot="end">
-            {{item?.value|totalBy:'Confirmed'}}
+            {{item?.value|totalBy:selectedValue}}
           </ion-badge>
         </ion-item>
         </ion-list>

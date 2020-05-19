@@ -2,7 +2,12 @@
   <ion-split-pane contentId="main">
     <!--  our side menu  -->
     <ion-menu contentId="main">
-      <ion-content>
+      <ion-content class="ion-padding-top">
+        <ion-text color="danger" class="ion-text-center">
+          <p class="total">
+            {{total$|async}}
+          </p>
+        </ion-text>
         <ion-list>
           <ion-item
             (click)="handleActions({type: 'openModal', payload: item})"
@@ -18,7 +23,7 @@
         </ion-list>
       </ion-content>
     </ion-menu>
-    
+
     <!-- the main content -->
     <ion-router-outlet id="main">
       <ion-header translucent="true">

@@ -1,20 +1,23 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ViewEncapsulation } from '@angular/core';
 import { Observable } from 'rxjs';
 import { OlMapComponent } from './components/olmap/olmap.component';
 import { ModalController } from '@ionic/angular';
 import { DetailsComponent } from './components/details/details.components';
 import { Covid19Service } from './services/covid19.service';
+import { concatMap, scan } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class AppComponent implements OnInit {
 
   @ViewChild('map') map: OlMapComponent;
   title = 'Covid19TrackingCountry';
   datas$: Observable<any>;
+  total$: Observable<number>;
 
   constructor(
     private _api: Covid19Service,
@@ -27,6 +30,10 @@ export class AppComponent implements OnInit {
 
   async load() {
     this.datas$ = this._api.data$;
+    this.total$ = this._api.data$.pipe(
+      concatMap(m => m),
+      scan((prev: number, next: any) => prev + next.Confirmed, 0)
+    );
     await this._api.load().catch(err => err);
   }
 

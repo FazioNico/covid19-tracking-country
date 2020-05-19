@@ -3,7 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apiBase: 'https://api.github.com/repos/CSSEGISandData/COVID-19/contents/csse_covid_19_data'
 };
 
 /*

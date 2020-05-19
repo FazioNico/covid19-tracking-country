@@ -9,7 +9,7 @@
           </p>
         </ion-text>
         <!-- select options -->
-        <ion-item>
+        <ion-item lines="none" class="ion-margin-bottom">
           <ion-select (ionChange)="handleActions({type: 'select', payload: $event})" [(ngModel)]="selectedValue" placeholder="Select One">
             <ion-select-option value="Confirmed">Confirmed</ion-select-option>
             <ion-select-option value="Recovered">Recovered</ion-select-option>
@@ -17,6 +17,9 @@
             <ion-select-option value="Deaths">Deaths</ion-select-option>
           </ion-select>
         </ion-item>
+        <!-- search filter -->
+        <ion-searchbar class="ion-padding-top ion-margin-top" (ionChange)="handleActions({type: 'search', payload: $event})"></ion-searchbar>
+        <!-- list country -->
         <ion-list>
           <ion-item
             (click)="handleActions({type: 'openModal', payload: item})"
@@ -37,7 +40,7 @@
     <ion-router-outlet id="main">
       <ion-header translucent="true">
         <ion-toolbar>
-          <ion-menu-button slot="start"></ion-menu-button>
+          <ion-menu-button color="primary" slot="start"></ion-menu-button>
         </ion-toolbar>
       </ion-header>
       <ion-content fulscreen="true">

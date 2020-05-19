@@ -4,7 +4,7 @@ import { OlMapComponent } from './components/olmap/olmap.component';
 import { ModalController } from '@ionic/angular';
 import { DetailsComponent } from './components/details/details.components';
 import { Covid19Service } from './services/covid19.service';
-import { concatMap, scan } from 'rxjs/operators';
+import { concatMap, scan, filter, toArray, tap, mergeMap, reduce } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
 
   @ViewChild('map') map: OlMapComponent;
   title = 'Covid19TrackingCountry';
-  datas$: Observable<any>;
+  datas$: Observable<any[]>;
   total$: Observable<number>;
   selectedValue: string = 'Confirmed';
 
@@ -41,10 +41,13 @@ export class AppComponent implements OnInit {
   async handleActions($event) {
     const {type =  null, payload = null} = $event;
     switch (true) {
+      case type === 'search':
+        this._search(payload.detail.value);
+        break;
       case type === 'select':
         // calcul total
         this._calculTotal();
-        // TODO: update map markers
+        // update map markers
         this._updateMapData();
         break;
       case type === 'openModal':
@@ -77,6 +80,21 @@ export class AppComponent implements OnInit {
           key: payload.Province_State || payload.Country_Region
         });
     }
+  }
+
+  private _search(value: string) {
+    if (!value || value.length <= 0)
+      return this.datas$ = this._api.data$;
+    this.datas$ = this._api.data$.pipe(
+      concatMap(m => m),
+      filter((i: any) => {
+        if (!i.Country_Region) return false;
+        return i.Country_Region.toLowerCase().includes(value.toLowerCase());
+      }),
+      scan((prev: any[], next: any) => {
+          return [...prev, next];
+      }, []),
+    );
   }
 
   private async _openModal(payload: {data: number[], key: string}) {

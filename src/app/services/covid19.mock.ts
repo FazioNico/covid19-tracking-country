@@ -14,10 +14,10 @@ export const mockData = [
     Recovered: 0
   },
   {
-    Active: 135,
+    Active: 999135,
     Admin2: 'Abbeville',
     Combined_Key: 'Genève',
-    Confirmed: 135,
+    Confirmed: 111111135,
     Country_Region: 'CH',
     Deaths: 0,
     FIPS: '45001',

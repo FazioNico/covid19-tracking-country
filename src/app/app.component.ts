@@ -45,6 +45,7 @@ export class AppComponent implements OnInit {
         // calcul total
         this._calculTotal();
         // TODO: update map markers
+        this._updateMapData();
         break;
       case type === 'openModal':
         // formatin data for modal
@@ -98,5 +99,9 @@ export class AppComponent implements OnInit {
         return prev + next[this.selectedValue];
       }, 0)
     );
+  }
+
+  private async _updateMapData() {
+    await this.map.updateDataMarkers();
   }
 }

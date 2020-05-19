@@ -44,7 +44,7 @@
         <app-olmap
             #map
             [data]="datas$|async|groupBy: 'Country_Region'"
-            [options]="{radiusMarkerKey: 'Confirmed', zoom: 6}"
+            [options]="{radiusMarkerKey: selectedValue, zoom: 6}"
             (action)="handleActions($event)"></app-olmap>
       </ion-content>      
     </ion-router-outlet>

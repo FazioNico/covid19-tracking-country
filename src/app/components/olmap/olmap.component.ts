@@ -1,4 +1,4 @@
-import { Component, Input, AfterViewInit, Output, EventEmitter, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, AfterViewInit, Output, EventEmitter, ViewChild, ElementRef, ChangeDetectorRef, OnChanges, SimpleChanges } from '@angular/core';
 import olMap from 'ol/Map';
 import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
@@ -9,6 +9,7 @@ import { Feature } from 'ol';
 import { fromLonLat } from 'ol/proj';
 import Point from 'ol/geom/Point';
 import VectorSource from 'ol/source/Vector';
+import BaseLayer from 'ol/layer/Base';
 
 // build flat Map
 const flatMap = (fn, arr: any[]): any[] => [].concat.apply([], arr.map(fn));
@@ -28,7 +29,7 @@ const flatMap = (fn, arr: any[]): any[] => [].concat.apply([], arr.map(fn));
     }
   `]
 })
-export class OlMapComponent implements AfterViewInit {
+export class OlMapComponent implements AfterViewInit, OnChanges {
 
   @ViewChild('map') map: ElementRef<HTMLElement>;
   @Input() data: any[];
@@ -37,9 +38,13 @@ export class OlMapComponent implements AfterViewInit {
   olMap: olMap;
   markersLayer: any;
 
-  constructor(private cdr: ChangeDetectorRef) {
 
+  ngOnChanges(changes: SimpleChanges) {
+    // only handle change for options
+    if (!changes.options || changes.options.firstChange) return;
+    this.updateDataMarkers();
   }
+
   ngAfterViewInit() {
     // init DOM
     setTimeout(() => {
@@ -51,28 +56,7 @@ export class OlMapComponent implements AfterViewInit {
     const center = fromLonLat(
       this.options.center || [6.1667, 46.2]
     );
-    // build layer Style for marker
-    const layerStyle: LiteralStyle = {
-      symbol: {
-        symbolType: SymbolType.CIRCLE,
-        size: ['interpolate', ['linear'], ['get', this.options.radiusMarkerKey], 100, 4, 100000, 80],
-        color: 'red',
-        rotateWithView: false,
-        opacity: [
-          'interpolate',
-          ['linear'],
-          ['get', this.options.radiusMarkerKey ],
-          100, 0.5, 100000, 0.75
-        ]
-      },
-    };
-    // build layer vector for markers
-    this.markersLayer = new WebGLPointsLayer({
-      source: new VectorSource({
-        attributions: 'USGS',
-      }),
-      style: layerStyle,
-    });
+    this.buildMarkersLayer();
     // build map view
     const view = new View({
       center,
@@ -103,10 +87,6 @@ export class OlMapComponent implements AfterViewInit {
     this._addClickEvent();
     // add markers
     this.addFeatures();
-    // force mapo update
-    // this.olMap.updateSize();
-    // // force Angular Detect Changes
-    // this.cdr.detectChanges();
   }
 
   addFeatures() {
@@ -134,6 +114,46 @@ export class OlMapComponent implements AfterViewInit {
     // console.log(features);
     // add all markers to layer source
     this.markersLayer.getSource().addFeatures(features);
+  }
+
+  buildMarkersLayer() {
+    // build layer Style for marker
+    const layerStyle: LiteralStyle = {
+      symbol: {
+        symbolType: SymbolType.CIRCLE,
+        size: ['interpolate', ['linear'], ['get', this.options.radiusMarkerKey], 100, 4, 100000, 80],
+        color: 'red',
+        rotateWithView: false,
+        opacity: [
+          'interpolate',
+          ['linear'],
+          ['get', this.options.radiusMarkerKey ],
+          100, 0.5, 100000, 0.75
+        ]
+      },
+    };
+    // build layer vector for markers
+    this.markersLayer = new WebGLPointsLayer({
+      title: 'WebGLPointsLayer',
+      source: new VectorSource({
+        attributions: 'USGS',
+      }),
+      style: layerStyle,
+    } as any);
+  }
+
+  async updateDataMarkers() {
+    // TODO: explore ol map doc to fiund better way to update
+    // rempve marker layer
+    this.olMap.removeLayer(this.markersLayer);
+    // rebuild markers
+    this.buildMarkersLayer();
+    // add upadated data
+    this.olMap.addLayer(this.markersLayer);
+    // add updated data to layer
+    this.addFeatures();
+    // force render map
+    this.olMap.render();
   }
 
   private _addClickEvent() {

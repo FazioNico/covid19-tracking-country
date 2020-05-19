@@ -3,4 +3,10 @@ app-root {
     font-size: 2.5rem;
     font-weight: 600;
   }
+
+  ion-select{
+    width: 100%;
+    display: inherit;
+    text-align: center;
+  }
 }

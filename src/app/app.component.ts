@@ -18,6 +18,7 @@ export class AppComponent implements OnInit {
   title = 'Covid19TrackingCountry';
   datas$: Observable<any>;
   total$: Observable<number>;
+  selectedValue: string = 'Confirmed';
 
   constructor(
     private _api: Covid19Service,
@@ -29,17 +30,22 @@ export class AppComponent implements OnInit {
   }
 
   async load() {
+    // bind data observable
     this.datas$ = this._api.data$;
-    this.total$ = this._api.data$.pipe(
-      concatMap(m => m),
-      scan((prev: number, next: any) => prev + next.Confirmed, 0)
-    );
+    // calcut total with dynamic value
+    this._calculTotal();
+    // load data
     await this._api.load().catch(err => err);
   }
 
   async handleActions($event) {
     const {type =  null, payload = null} = $event;
     switch (true) {
+      case type === 'select':
+        // calcul total
+        this._calculTotal();
+        // TODO: update map markers
+        break;
       case type === 'openModal':
         // formatin data for modal
         const data = [
@@ -84,4 +90,13 @@ export class AppComponent implements OnInit {
     await ionModal.present();
   }
 
+  private _calculTotal() {
+    this.total$ = this._api.data$.pipe(
+      concatMap(m => m),
+      scan((prev: number, next: any) => {
+        if(!next[this.selectedValue] || isNaN(parseInt(next[this.selectedValue], 10)) ) return prev;
+        return prev + next[this.selectedValue];
+      }, 0)
+    );
+  }
 }

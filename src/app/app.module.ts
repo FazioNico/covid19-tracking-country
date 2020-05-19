@@ -8,6 +8,12 @@ import { AppComponent } from './app.component';
 import { COMPONENTS } from './components';
 import { PIPES } from './pipes';
 import { SERVICES } from './services';
+import { FormsModule } from '@angular/forms';
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+
+// the second parameter 'fr-FR' is optional
+registerLocaleData(localeFr, 'fr-FR');
 
 @NgModule({
   declarations: [
@@ -19,6 +25,7 @@ import { SERVICES } from './services';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
     IonicModule.forRoot({
       mode: 'md'
     })

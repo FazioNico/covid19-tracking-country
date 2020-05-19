@@ -8,6 +8,15 @@
             {{total$|async}}
           </p>
         </ion-text>
+        <!-- select options -->
+        <ion-item>
+          <ion-select (ionChange)="handleActions({type: 'select', payload: $event})" [(ngModel)]="selectedValue" placeholder="Select One">
+            <ion-select-option value="Confirmed">Confirmed</ion-select-option>
+            <ion-select-option value="Recovered">Recovered</ion-select-option>
+            <ion-select-option value="Active">Active</ion-select-option>
+            <ion-select-option value="Deaths">Deaths</ion-select-option>
+          </ion-select>
+        </ion-item>
         <ion-list>
           <ion-item
             (click)="handleActions({type: 'openModal', payload: item})"

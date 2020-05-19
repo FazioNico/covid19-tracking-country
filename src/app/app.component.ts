@@ -31,24 +31,11 @@ export class AppComponent implements OnInit {
   }
 
   async handleActions($event) {
-    console.log('output: ', $event);
     const {type =  null, payload = null} = $event;
     switch (true) {
       case type === 'openModal':
-        this._openModal(payload);
-        break;
-      default:
-        break;
-    }
-  }
-
-  private async  _openModal(payload) {
-    const ionModal = await this.modalCtrl.create({
-      component: DetailsComponent,
-      componentProps: {value: {
-        title: payload.key,
-        labels: ['Confirmed', 'Recovered', 'Active', 'Deaths'],
-        data: [
+        // formatin data for modal
+        const data = [
           payload.value.reduce((prev, next) => {
             return prev + parseInt(next.Confirmed, 10);
           }, 0),
@@ -61,7 +48,30 @@ export class AppComponent implements OnInit {
           payload.value.reduce((prev, next) => {
             return prev + parseInt(next.Deaths, 10);
           }, 0)
-        ]
+        ];
+        this._openModal({data, key: payload.key});
+        break;
+      case type === 'geoMarker':
+        // formatin data for modal
+        this._openModal({
+          data: [
+            payload.Confirmed,
+            payload.Recovered,
+            payload.Active,
+            payload.Deaths
+          ],
+          key: payload.Province_State || payload.Country_Region
+        });
+    }
+  }
+
+  private async _openModal(payload: {data: number[], key: string}) {
+    const ionModal = await this.modalCtrl.create({
+      component: DetailsComponent,
+      componentProps: {value: {
+        title: payload.key,
+        labels: ['Confirmed', 'Recovered', 'Active', 'Deaths'],
+        data: payload.data
       }}
     });
     await ionModal.present();

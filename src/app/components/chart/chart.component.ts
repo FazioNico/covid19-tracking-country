@@ -4,7 +4,7 @@ import {Chart} from 'chart.js';
 @Component({
   selector: 'app-chart',
   template: `
-    <canvas #canvas id="myChart" width="400" height="400"></canvas>
+    <canvas #canvas id="myChart"></canvas>
   `,
   styles: []
 })
@@ -31,10 +31,10 @@ export class ChartComponent implements AfterViewInit {
                 label: this.title,
                 data: this.data,
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
                     'rgba(75, 192, 192, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(255, 99, 132, 0.2)',
                 ],
                 borderWidth: 1
             }]

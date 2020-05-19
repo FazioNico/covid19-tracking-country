@@ -1,15 +1,37 @@
 /* You can add global styles to this file, and also import other style files */
 
-app-olmap, app-chart {
+app-olmap {
   display: block;
   position: relative;
   width: 100%;
   height: 100%;
 }
+app-chart {
+  display: block;
+  position: relative;
+  width: 100%;
+  max-width:100%;
+  height: 100%;
+  margin: auto;
 
+}
+
+app-details {
+  ion-grid {
+    max-width: 800px;
+    margin: auto;
+  }
+}
 ion-toolbar {
   --background: transparent no-repeat fixed center;
   position: absolute;
   top: 0;
   z-index: 9999;
+}
+
+ion-modal {
+  --width: 100%!important;
+  --min-width: 100%;
+  --height: 100%!important;
+  --min-height: 100%;
 }

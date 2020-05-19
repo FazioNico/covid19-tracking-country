@@ -1,27 +1,26 @@
 # Covid19TrackingCountry
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.6.
+> Application pour traquer les statistiques du Covid-19 par pays dans le monde
 
-## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+J'ai codé cette application en live sur Youtube le 18.05.2020.
+La vidéo dure environ 6h donc je vais voir comment ej fais le montage que je publirai sur ma [chaine youtube](https://youtube.com/fazionico). 
 
-## Code scaffolding
+En attandant j'ai corrigé le bug de la map qui vennait du faite que j'avais oublié d'ajouter les CSS de OpenLayer. J'en ai profiter aussi pour quelque petit truc vite fait et un peux de style. 
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Donc pour résumer ce qui c'est passé:
+- Création d'une pplication Angular 9
+- Utilisation de Ionic 5
+- Gestion multi services injection
+- Manipulation et gestion des données avec RxJs
+- Implémentation d'OpenLayer Map
+- Implémentation de Chart.js
+- Configuration des variable d'environement
+- Mise en place des Actions Github pour "Deploy on push"
 
-## Build
+Voilà je crois que tous est dit.. Je vais encore configurer mon hébergeur pour pouvoir proposer une version PWA de l'application en installant le package @angular/pwa qui ajourera les options requises. Après cela l'application pourra être installé par les utilisateur sur les divers appareils qui supportent la technologie PWA.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Je remerci tous ceux qui on participé à la diffusiopn live sur Youtube. C'était bien cool de vous retrouver et de chatter avec vous.
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Au plaisre de vous retrouver pour le prochain live ou lors d'une des formations que je donne. 
+A++

@@ -61,7 +61,7 @@ import { ModalController } from '@ionic/angular';
           <ion-card>
               <ion-card-header color="danger" class="ion-text-center">
                 <ion-card-title>
-                  {{value?.data[1]}}
+                  {{value?.data[3]}}
                 </ion-card-title>
                 <ion-card-subtitle>
                   Deaths
